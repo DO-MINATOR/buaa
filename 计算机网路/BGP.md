@@ -19,3 +19,21 @@ BGP支持无类别域间路由选择CIDR，可以减少路由表无限制的扩�
 - UPDATE报文： 路由更新信息，包括撤销路由和新的可达路由，路径属性
 - NOTIFICATION：检测到差错时，发送该报文，用于关闭对等体的连接
 - KEEPALIVE：对等体间周期性的发送，确保连接有效
+
+#### 状态转换：
+
+1. Idle
+2. Connect
+3. Active
+4. Open-sent
+5. Open-confirm
+6. Established
+
+#### 路由聚合
+
+将as内部路由聚合一起再发送给BGP，可以减小路由传输量，同时隔离了部分网络拓扑，保持了网络稳定。
+
+#### 常见属性
+
+- Origin：IGP、EGP、Incomplete（BGP信息的来源）
+- As-path
