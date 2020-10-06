@@ -35,5 +35,13 @@ BGP支持无类别域间路由选择CIDR，可以减少路由表无限制的扩�
 
 #### 常见属性
 
-- Origin：IGP、EGP、Incomplete（BGP信息的来源）
-- As-path
+- Origin：IGP（network配置、路由聚合）、EGP（其他AS传递过来的）、Incomplete（IGP传输过来的）
+- As-path：经过的AS路由号，保证了无环路
+- Next-hop：EBGP传输时，next-hop为EBGP路由地址，在向IBGP传输时，不改变路由地址
+- med
+
+![image-20201006124512598](https://imagebag.oss-cn-chengdu.aliyuncs.com/img/image-20201006124512598.png)
+
+- local-preference
+
+![image-20201006124537803](https://imagebag.oss-cn-chengdu.aliyuncs.com/img/image-20201006124537803.png)
