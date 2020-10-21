@@ -19,5 +19,7 @@ DDos防御机制：OpenFlow在网络管理和安全控制中的应用。如果�
 - [SDN-LAB实验平台](https://www.sdnlab.com/experimental-platform/)
 - [sFlow流量监控之DDoS防御](https://www.sdnlab.com/sflow-ddos/)
 
+### 主要工作
 
-
+- 系统搭建（mininet组网和设备配置、FloodLight控制器）
+- DDoS攻击构造、防御实现，简单与复杂攻击种类
