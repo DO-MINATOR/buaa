@@ -66,8 +66,8 @@
 - 路由器通告报文router advertisement：路由器周期性的通告链路状态、网络参数。
   -  cur hop limit：主机发送报文使用的默认跳数限制
   - router lifetime：作为缺省路由器的生命周期
-  - reachable time：可达保有时间
-  - retrans timer：重传时间
+  - reachable time：邻居可达保有时间
+  - retrans timer：邻居发现协议重传时间
   - Options：
     - 链路层地址
     - MTU选项
