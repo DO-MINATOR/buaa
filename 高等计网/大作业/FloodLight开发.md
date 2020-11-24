@@ -97,39 +97,15 @@ public class Controller implements IFloodlightProviderService, IStorageSourceLis
 
 ### IUpdate实现类
 
-#### SwitchUpdate类
+#### SwitchUpdate
 
-- added
-- removed
-- portchanged
-- activated
-- deactivated
-- otherchange
+​	处理交换机事件（添加交换机、删除交换机、端口改变等）
 
-处理交换机事件（添加交换机、删除交换机、端口改变等）
+#### HAControllerNodeIPUpdate
 
 #### HARoleUpdate
 
-#### SwitchRoleUpdate
-
-### SwitchManager
-
-客户-服务器通信模型
-
-```java
-public void startUp(FloodlightModuleContext context) throws FloodlightModuleException {
-	startUpBase(context);
-	bootstrapNetty();
-}
-```
-
-与controller一同作为核心模块在floodlight启动时启动，使用netty作为通信框架
-
-![这里写图片描述](https://imagebag.oss-cn-chengdu.aliyuncs.com/img/20170412145012938)
-
-netty使用ChannelHandler与交换机进行通信，交互过程类似于spring的拦截器
-
-最后一个OFChannelHandler负责交换机的目标发现，状态识别，通信配置等，主要收发Hello、Feature、Echo报文，并进行链接，状态转移图如下
+OFChannelHandler负责交换机的目标发现，状态识别，通信配置等，主要收发Hello、Feature、Echo报文，并进行链接，状态转移图如下
 
 ![这里写图片描述](https://imagebag.oss-cn-chengdu.aliyuncs.com/img/20170412160614120)
 
@@ -154,3 +130,10 @@ LLDP发送分为两个方面，一是链路发现模块启动后，周期性的�
 
 BDDP发送，则是通过取出quarantineQueue队列中的端口信息，并在toRemoveFromQuarantineQueue和toRemoveFromMaintenanceQueue队列中查看有无此端口信息，如果没有，则发送BDDP报文，否则不发送。
 
+### TopologyManager
+
+处理交换机事件的SwitchUpdate，当检测到链路发生变化时（新增、减少、端口变化）则会进行controller调度dispatch方法，进而执行LinkDiscoveryManager的sendDiscoveryMessage方法，发送LLDP和BDDP消息，进行链路设备的发现，根据获取的信息生成相应的拓扑结构
+
+### Forwarding
+
+该模块负责处理计算源和目的地设备间的最短路径，并通过下发流表的方式实现数据包转发，receive函数接收pack-in报文，通常只处理新加入的数据源，对于已有的数据源，因为已经计算过了转发规则，并已下发流表，所以交换机不会再次请求控制器为其计算路径。
